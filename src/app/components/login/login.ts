@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {  CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -12,30 +13,44 @@ import { Router } from '@angular/router';
 export class Login implements OnInit {
   title = 'Login';
   email: string = '';
-  password: string = '';
+  pwd: string = '';
   errorMsg: string = '';
-  constructor(private router: Router) {}
-
+  constructor(private router: Router) {} 
+  private http = inject(HttpService);
+  
   ngOnInit(): void {
-    throw new Error('Login method not implemented.');
+    console.log('Login component initialized');
+    // Check if the user is already logged in
+    // and redirect them to the account page if they are.
+    // For example:
+    // if (this.authService.isLoggedIn()) {
+    //   this.router.navigate(['/account']);
+    // }
   }
 
   login(event:any) {
-    console.log('Logging in with email: ', this.email);
+    this.errorMsg = '';
     event.preventDefault();
-    const users = [
-      { email: 'admin@com.au', password: '123'},
-      { email: 'user@com.au', password: '123'},
-      { email: 'email@com.au', password: '123'}
-  ]
-    const loggedUser = users.find(user => user.email === this.email && user.password === this.password);
-    if (loggedUser) {
-      console.log('Login successful');
-      this.router.navigate(['/account']);
-    } else {
-      console.log('Login failed');
-      this.errorMsg = 'Invalid email or password';
-    }
+    // Request body{email, pwd} is sent through HTTP POST th the server
+    //.subscribe() is used to listen to response from the server
+    //this.email bounds to class Login property and updated by ngModel
+    this.http.login(this.email, this.pwd).subscribe(
+      {
+        next: (user:any) => {
+          if (user.valid ===true) {
+            this.router.navigate(['/account']);
+          } else {
+            this.errorMsg = 'Invalid email or password';
+          }
+        },
+        error: (err:any) => {
+          console.error('Login error:', err);
+          this.errorMsg = 'An error occurred during login. Please try again later.';
+        },
+        complete: () => {
+          console.log('Login request completed');
+        }
+      })
   }
 
 
