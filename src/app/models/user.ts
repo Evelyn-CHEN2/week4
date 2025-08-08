@@ -1,20 +1,27 @@
 export class User {
-    name: string;
+    userName: string;
+    birthDate: string;
+    age: number; 
     email: string;
-    password: string;
-    avatar?: string;
+    pwd: string;
+    valid: boolean;
 
-    constructor(name: string, email:string, password: string, avatar?: string) {
-        this.name = name;
+    constructor(userName: string, birthDate: string, age: number, email:string, pwd: string, valid: boolean) {
+        this.userName = userName;
+        this.birthDate = birthDate;
+        this.age = age;
         this.email = email;
-        this.password = password;
-        this.avatar = avatar;
-    }
-    getUser(): { name: string; email: string; avatar?: string } {
-        return {
-            name: this.name,
-            email: this.email,
-            avatar: this.avatar,
-        };
+        this.pwd = pwd;
+        this.valid = valid;
     }
 }
+
+
+// export interface User {
+//     userName: string;
+//     birthDate: string;
+//     age: number; 
+//     email: string;
+//     pwd: string;
+//     valid: boolean;
+// }
