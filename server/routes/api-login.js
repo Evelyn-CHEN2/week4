@@ -21,8 +21,6 @@ module.exports =  {
                 let user = new User(loggedUser.userName, loggedUser.birthDate, loggedUser.age, loggedUser.email, '', true);
                 res.send(user);
             }
-            
-               //Question: even if it's set to be 200, Angular still skips .next (error), and jumps to .error
         })
     }
 }
