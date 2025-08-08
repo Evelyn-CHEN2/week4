@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import {  CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'; //CommonModule offers *ngIf, *ngFor
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -20,12 +20,11 @@ export class Login implements OnInit {
   
   ngOnInit(): void {
     console.log('Login component initialized');
-    // Check if the user is already logged in
-    // and redirect them to the account page if they are.
-    // For example:
-    // if (this.authService.isLoggedIn()) {
-    //   this.router.navigate(['/account']);
-    // }
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      console.log('User logged in: ', user)
+      this.router.navigate(['/account']);
+    }
   }
 
   login(event:any) {
@@ -41,7 +40,7 @@ export class Login implements OnInit {
       {
         next: (user:any) => {
           if (user.valid === true) {
-            localStorage.setItem('user', JSON.stringify(user));  // localStorage can only store strings
+            this.authService.setCurrentUser(user);
             this.router.navigate(['/account']);
           } else {
             this.errorMsg = 'Invalid email or password';
