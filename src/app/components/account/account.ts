@@ -1,12 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 
 @Component({
   selector: 'app-account',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './account.html',
   styleUrl: './account.css'
 })
@@ -26,6 +27,7 @@ export class Account implements OnInit {
   ngOnInit(): void {
     console.log('Account component initialized with user: ');
     const currentUser = this.authService.getCurrentUser();
+    console.log('Current user:', currentUser);
     if (!currentUser) {
       console.log('No user logged in, redirecting to login page');
       this.router.navigate(['/login']);
@@ -38,6 +40,12 @@ export class Account implements OnInit {
     this.authService.setCurrentUser(this.user);
     console.log('User information updated:', this.user);
     alert('User information updated successfully');
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+    console.log('User logged out', this.user);
   }
 
 }
