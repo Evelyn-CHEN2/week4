@@ -16,12 +16,3 @@ export class User {
     }
 }
 
-
-// export interface User {
-//     userName: string;
-//     birthDate: string;
-//     age: number; 
-//     email: string;
-//     pwd: string;
-//     valid: boolean;
-// }

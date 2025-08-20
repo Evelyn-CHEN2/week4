@@ -1,21 +1,21 @@
 <h1>User Profiles</h1>
 <form>
     <label for="userName">User Name:</label>
-    <input type="text" name="userName" [(ngModel)]="user.userName" placeholder="{{user.userName}}" required>
+    <input type="text" name="userName" [(ngModel)]="userName" placeholder="{{userName}}" required>
     <br>
     <label for="email">Email:</label>
-    <input type="email" name="email" [(ngModel)]="user.email" placeholder="{{user.email}}" required>
+    <input type="email" name="email" [(ngModel)]="email" placeholder="{{email}}" required>
     <br>
     <label for="birthDate">Birth Date:</label>
-    <input type="date" name="birthDate" [(ngModel)]="user.birthDate" placeholder="{{user.birthDate}}" required>
+    <input type="text" name="birthDate" [(ngModel)]="birthDate" placeholder="{{birthDate}}" required>
     <br>
     <label for="age">Age:</label>
-    <input type="number" name="age" [(ngModel)]="user.age" placeholder="{{user.age}}" required>
+    <input type="number" name="age" [(ngModel)]="age" placeholder="{{age}}" required>
     <br>
     <button type="submit" (click)="updateUser($event)">Update</button>
 </form>
 <div>
-    Welcome, {{ user.userName }}!
+    Welcome, {{ userName }}!
     <button class="btn btn-primary navbar-btn pull-right" (click)="logout()">Logout</button>
 </div>
 

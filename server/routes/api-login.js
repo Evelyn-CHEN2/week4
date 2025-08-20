@@ -13,7 +13,6 @@ module.exports =  {
             if (!req.body) {
                 return res.sendStatus(400)
             }
-
             
             const { email, pwd } = req.body;
             const loggedUser = users.find(user => user.email === email && user.pwd === pwd);
