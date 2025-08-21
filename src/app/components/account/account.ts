@@ -13,13 +13,14 @@ import { User } from '../../models/user';
   styleUrl: './account.css'
 })
 export class Account implements OnInit {
-  
-    userName: string = '';
-    birthDate: string = '';
-    age: number = 0;
-    email: string = '';
-
-    user: User | null = null;
+  user: User = {
+    userName: '',
+    birthDate: '',
+    age: 0,
+    email: '',
+    pwd: '',
+    valid: false
+  }
   
   title = 'Account Page';
   private authService = inject(AuthService);
@@ -34,25 +35,20 @@ export class Account implements OnInit {
       this.router.navigate(['/login']);
     }
     this.user = currentUser
-    this.userName = this.user?.userName || '';
-    this.birthDate = this.user?.birthDate || '';
-    this.age = this.user?.age || 0;
-    this.email = this.user?.email || '';
   }
 
   updateUser(event: any): void {
     event.preventDefault();
     const updatedUser: User = {
-      ...this.user,
-      userName: this.userName,
-      email: this.email,
-      birthDate: this.birthDate,
-      age: this.age,
-      pwd: this.user?.pwd || '',
-      valid: this.user?.valid || false
+      userName: this.user.userName,
+      email: this.user.email,
+      birthDate: this.user.birthDate,
+      age: this.user.age,
+      pwd: this.user?.pwd,
+      valid: this.user?.valid
     }
     this.authService.setCurrentUser(updatedUser);
-    this.user = updatedUser; // Update the local user reference
+    this.user = updatedUser; // Update the UI with the updated user information
     alert('User information updated successfully');
   }
 
